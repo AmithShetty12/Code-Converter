@@ -14,7 +14,7 @@ const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 // Define an asynchronous function to run the code conversion and explanation tasks
 async function run(target, source, code) {
   let prompt = `convert this ${source} language to ${target} give me only code \n` + code;
-  console.log(code)
+
 
 
   // If prompt length exceeds 28000 characters, split the code into halves
@@ -25,17 +25,17 @@ async function run(target, source, code) {
     const firstHalf = code.substring(0, midpoint);
     const secondHalf = code.substring(midpoint);
     
-    prompt = `convert this ${source} language to ${target} give me only code \n`+code;
+    prompt = `convert this ${source} language to ${target} give me only code \n`;
     
     // Generate content for each half separately
-    let op = filter(await generate(prompt + "\n" + firstHalf));
-    let op2 = filter(await generate(prompt + "\n" + secondHalf));
-    var opf = filter(await generate("correct the program" + op + op2));
+    let op = generate(prompt + "\n" + firstHalf);
+    let op2 = generate(prompt + "\n" + secondHalf);
+    var opf = filter(await generate("correct the program" + await op + await op2));
     prompt = `Explain the code logic of the below and also explain us the approach how to convert to ${target} ill convert by myself dont convert it for me just explain\n`+firstHalf;
-    let logic1=filter1(await generate(prompt));
+    let logic1=generate(prompt);
     prompt = `Explain the code logic of the below and also explain us the approach how to convert to ${target} ill convert by myself dont convert it for me just explain\n`+secondHalf;
-    let logic2=filter1(await generate(prompt));
-    var logic=filter1(await generate("check n correct"+logic1+logic2))
+    let logic2=generate(prompt);
+    var logic=filter1(await generate("check n correct"+ await logic1+ await logic2))
 
     
   } else {

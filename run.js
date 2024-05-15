@@ -17,7 +17,7 @@ async function run(target,source) {
   const response = await result.response;
   const text = response.text();
   fs.writeFileSync("hi.txt",filter(text))
-  const prompt1 = `Give me the program name ad detailed view including all functions for ${target}`+fs.readFileSync("example.txt","utf8")
+  const prompt1 = `Explain the code logic of the below and also explain us the approach how to convert to  ${target}  ill convert by myself dont convert it for me just explain\n`+fs.readFileSync("example.txt","utf8")
   const result1 = await model.generateContent(prompt1);
   const response1 = await result1.response;
   const text1 = response1.text();

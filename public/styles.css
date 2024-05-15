@@ -1,0 +1,228 @@
+/* Header */
+body{
+    background: linear-gradient(45deg,white,#B6EAFA,white); /* Change colors as per your preference */
+    margin: 0; /* Remove default body margin */
+    padding: 0; /* Remove default body padding */
+}
+.ab{
+   
+   text-align: center;
+   
+
+}
+.mainheading{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 75px;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight:750;
+}
+.subheading{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 75px;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight:750;
+    background-image: linear-gradient(to right,#9400FF,#836FFF,#FF6868,#FF6868); /* Gradient background */
+    -webkit-background-clip: text; /* Clip text to background */
+    -webkit-text-fill-color: transparent; /* Hide original text */
+    animation: animateGradient 5s linear infinite; /* Animation */
+  }
+  
+  @keyframes animateGradient {
+    0% {
+      background-position: 0 50%; /* Start position */
+    }
+    100% {
+      background-position: 100% 50%; /* End position */
+    }
+  }
+.description{
+    margin-top: 0px;
+    font-size: 25px;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    margin-bottom: 70px;
+    font-weight: 500;
+}
+
+header {
+    background-color: #430A5D;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Main */
+main {
+    font-family: "Merriweather", serif;
+    font-weight: 300;
+    font-style: normal;
+    
+
+    display: flex;
+    justify-content: center;
+}
+
+.converter-form,
+.converted-code {
+    background-color: #F5EEE6;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.converter-form{
+    margin-right: 50px;
+    background-color: #F5EEE6; /* Container background color */
+    /* Container border */
+    border-radius: 10px; /* Container border radius */
+    position: relative; /* Position relative for absolute positioning of shadows */
+}
+
+.converter-form::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  z-index: -1; /* Place the shadow behind the container */
+  border-radius: 10px; /* Same as container border radius */
+  box-shadow: 
+  5px 5px 15px 5px #ff8080, -9px 5px 15px 5px #ffe488, -7px -5px 15px 5px #8cff85, 12px -5px 15px 5px #80c7ff, 12px 10px 15px 7px #e488ff, -10px 10px 15px 7px #ff616b, -10px -7px 27px 1px #8e5cff, 5px 5px 15px 5px transparent;
+}
+  
+ 
+.converted-code{
+   
+    background-color: #F5EEE6; /* Container background color */
+    /* Container border */
+    border-radius: 10px; /* Container border radius */
+    position: relative; /* Position relative for absolute positioning of shadows */
+}
+
+.converted-code::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  z-index: -1; /* Place the shadow behind the container */
+  border-radius: 10px; /* Same as container border radius */
+  box-shadow: 
+  5px 5px 15px 5px #ff8080, -9px 5px 15px 5px #ffe488, -7px -5px 15px 5px #8cff85, 12px -5px 15px 5px #80c7ff, 12px 10px 15px 7px #e488ff, -10px 10px 15px 7px #ff616b, -10px -7px 27px 1px #8e5cff, 5px 5px 15px 5px transparent;
+}
+
+
+/* Form Styling */
+.converter-form form {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+}
+
+select,
+input[type="file"],
+textarea {
+    
+    border-radius: 10px;
+    border: 2px solid #430A5D;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+button[type="submit"] {
+    background-color:  #F5EEE6;
+    border: 2px solid #430A5D;
+    color: black; /* White text for contrast */
+    border-radius: 10px; /* Adjust border-radius to change the roundness */
+    padding: 10px 20px; /* Adjust padding as needed */
+    font-size: 16px; /* Adjust font size as needed */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #430A5D; /* Change background color on hover */
+    color: #ffffff; /* Change text color on hover */
+}
+
+
+/* Image Styling */
+.image-container img {
+    max-width: 100px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+}
+.fadedbutton{
+    background-color: #F5EEE6;
+    color: black;
+    border: 2px solid #430A5D;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.hidden{
+    display: none;
+}
+
+/* Footer */
+footer {
+    
+    color: black;
+    font-weight: 20;
+    padding: 10px 0;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .converter-form,
+    .converted-code {
+        width: 100%;
+    }
+}
+img{
+    margin: 2%;
+}
+
+
+
+.textarea{
+    border-radius: 30px;
+}
+
+.hiii{
+    
+    border-radius: 10px;
+    border: 2px solid #430A5D;
+}
+
+.hiii {
+    background-color: #F5EEE6;
+    border: 2px solid #000; /* Solid black border */
+    border-radius: 5px; /* Rounded edges */
+    padding: 5px; /* Optional: Add padding for visual appeal */
+  }
+
+  .btnd{
+    background-color: #000;
+  }
+
+  textarea{
+    resize: none;
+  }

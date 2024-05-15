@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Language Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <% const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);%>
+    <div class="headings">
+     <p class="mainheading ab">Code Converter</p>
+
+     <p class="subheading ab">in a click of a button</p>
+     <p class="description ab">Code conversion made super simple to save you<br> hours of time from learning a completely new<br> language</p>
+    </div>
+    <main class="container">
+        <div class="converter-form">
+            <form  action="/upload" method="post" enctype="multipart/form-data">
+                <input class="hiii" type="file" name="fileUpload">
+                <button class="btn" type="submit">Upload</button>
+            </form>
+            <form action="/convert" method="post" id="sourceForm">
+                <label for="sourceLanguage">Source Language:</label>
+                <select class="labels" name="sourceLanguage" id="sourceLanguage"
+                    onchange="changeImage('sourceLanguage',false)">
+                    <% if(locals.sourceLanguage) {%>
+                        <option value="<%= sourceLanguage %>"><%= capitalizeFirstLetter(sourceLanguage) %></option>
+                    <% } %> 
+                    <option value="delphi">Delphi</option>
+                    <option value="cobol">Cobol</option>
+                    <option value="visualbasic">Visual Basic</option>
+                    <option value="fortran">Fortran</option>
+                    <option value="pascal">Pascal</option>
+                    <option value="lisp">Lisp</option>
+                    <option value="pl/i">PL/I</option>
+                    <option value="algol">ALGOL</option>
+                    <option value="logo">Logo</option>
+                    <option value="smalltalk">Smalltalk</option>
+                    <option value="abap">ABAP</option>
+                    <option value="postscript">PostScript</option>
+                    <option value="unreal script">UnrealScript</option>
+                    <option value="autohotkey">AutoHotkey</option>
+                    <option value="labview">LabVIEW</option>
+                    <option value="ada">Ada</option>
+                    <option value="prolog">Prolog</option>
+                    <option value="forth">Forth</option>
+                    <option value="verilog">Verilog</option>
+                    <option value="vhdl">VHDL</option>
+                </select>
+                <% if(locals.sourceLanguage) {%>
+                <div class="image-container">
+                    <img id="sourceLanguageImg" src="logos/<%=sourceLanguage %>.svg" alt="Language Image">
+                </div>
+                <% }else{ %>
+                    <div class="image-container">
+                        <img id="sourceLanguageImg" src="logos/delphi.svg" alt="Language Image">
+                    </div>
+                    <% } %>
+                <% if(locals.sourceCode){ %>
+                    <textarea class="source_text textarea" name="sourceCode" id="sourceCode"
+                        placeholder="Enter your code here" rows="20" cols="70"><%= sourceCode %></textarea><br>
+                    <% }else{ %>
+                        <textarea class="source_text textarea" name="sourceCode" id="sourceCode"
+                            placeholder="Enter your code here" rows="20" cols="70"></textarea><br>
+                        <% } %>
+                    <input type="text" id="target" name="targetLanguage" value="python" readonly class="hidden">
+                            <button class="btn" type="submit">Convert</button>
+            </form>
+        </div>
+
+        <div class="converted-code" id="targetForm">
+            <% if (locals.convertedCode) { %>
+                <form action="/download/<%= targetLanguage %>" method="post" enctype="multipart/form-data">
+                    <button class="btnd" type="submit">Download</button>
+                </form>
+                
+                <% }else{ %>
+                    <form action="/download" method="get" enctype="multipart/form-data">
+                        <button class="fadedbutton" onclick="disableButton(this)">Download</button>
+                    </form>
+                    <% } %>
+                        <br><label for="targetLanguage">Target Language:</label>
+                        <select class="labels" name="targetLanguage" id="targetLanguage"
+                            onchange="changeImage('targetLanguage',true)">
+                            <% if(locals.targetLanguage) {%>
+                                <option value="<%= targetLanguage %>"><%= capitalizeFirstLetter(targetLanguage) %></option>
+                                <% } %>
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="java">Java</option>
+                            <option value="c">C</option>
+                            <option value="c++">C++</option>
+                            <option value="c#">C#</option>
+                            <option value="php">PHP</option>
+                            <option value="ruby">Ruby</option>
+                            <option value="swift">Swift</option>
+                            <option value="kotlin">Kotlin</option>
+                            <option value="typescript">TypeScript</option>
+                            <option value="go">Go</option>
+                            <option value="rust">Rust</option>
+                            <option value="scala">Scala</option>
+                            <option value="perl">Perl</option>
+                            <option value="r">R</option>
+                            <option value="matlab">MATLAB</option>
+                            <option value="html/css">HTML/CSS</option>
+                            <option value="sql">SQL</option>
+                            <option value="bash">Bash/Shell</option>
+                            <option value="dart">Dart</option>
+                            <option value="objective-c">Objective-C</option>
+                            <option value="elm">Elm</option>
+                            <option value="elixir">Elixir</option>
+                            <option value="clojure">Clojure</option>
+                            <option value="f#">F#</option>
+                            <option value="apex">Apex</option>
+                            <option value="pl/sql">PL/SQL</option>
+                            <option value="solidity">Solidity</option>
+                            <option value="t-sql">T-SQL</option>
+                            <option value="tcl">Tcl</option>
+                            <option value="groovy">Groovy</option>
+                            <option value="powershell">PowerShell</option>
+                            <option value="vhdl">VHDL</option>
+                            <option value="verilog">Verilog</option>
+                            <option value="assembly">Assembly</option>
+                            <option value="lua">Lua</option>
+                            <option value="awk">Awk</option>
+                            <option value="sed">sed</option>
+                        </select>
+                        <% if(locals.targetLanguage) {%>
+                        <div class="image-container">
+                            <img id="targetLanguageImg" src="logos/<%= targetLanguage %>.svg" alt="Language Image">
+                        </div>
+                    <% }else{ %>
+                        <div class="image-container">
+                            <img id="targetLanguageImg" src="logos/python.svg" alt="Language Image">
+                        </div>
+                        <% } %>
+                        <% if (locals.convertedCode) { %>
+                            <textarea class="textarea" name="sourceCode" id="sourceCode"
+                                placeholder="    Enter your code here" rows="20" cols="70"
+                                readonly><%= convertedCode %></textarea>
+
+                            <% }else{ %>
+                                <textarea class="textarea" name="sourceCode" id="sourceCode"
+                                    placeholder="Enter your code here" rows="20" cols="70"
+                                    readonly>Please enter the source code you want to convert.</textarea>
+                                <% } %>
+                                <% if (locals.convertedCode) { %>
+                                    <form action="/breakdown" method="get" enctype="multipart/form-data">
+                                        <button class="btnd" type="submit">Breakdown</button>
+                                    </form>
+                                    
+                                    <% }else{ %>
+                                        <form action="/breakdown" method="get" enctype="multipart/form-data">
+                                            <button class="fadedbutton" onclick="disableButton(this)">Breakdown</button>
+                                        </form>
+                                        <% } %>    
+        </div>
+    
+    </main>
+    <footer>
+        <p>&copy; Algorithmic Avengers</p>
+    </footer>
+    <script>
+        const changeImage = (inp,check) => {
+            let lang = document.getElementById(inp).value;
+            let img = document.getElementById(inp + "Img");
+            img.setAttribute("src", `logos/${lang}.svg`)
+            if(check){
+                
+               let item=document.getElementById("target")
+               item.setAttribute("value",lang) 
+            }
+        }
+        function disableButton(button) {
+            // Disable the button
+            button.disabled = true;
+        }
+
+        const express = require('express');
+const ejs = require('ejs');
+const { load_dataset } = require('datasets');
+
+const app = express();
+
+// Load dataset
+const ds = load_dataset("codeparrot/github-code", { streaming: true, split: "train" });
+
+// Route to render EJS template
+app.get('/', async (req, res) => {
+    try {
+        // Fetch code snippets
+        const codeSnippets = await ds.iterator().next();
+
+        // Render EJS template with code snippets data
+        res.render('index', { codeSnippets });
+    } catch (error) {
+        console.error('Error fetching code snippets:', error);
+        res.status(500).send('Error fetching code snippets');
+    }
+});
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});
+
+     
+    </script>
+</body>
+
+</html>

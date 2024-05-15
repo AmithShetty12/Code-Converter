@@ -1,61 +1,107 @@
-def display_board(board):
-    for row in board:
-        print(" | ".join(row))
-        print("-" * 5)
+class ProductRecord:
+    def __init__(self, product_id, product_name, product_quantity, product_price):
+        self.product_id = product_id
+        self.product_name = product_name
+        self.product_quantity = product_quantity
+        self.product_price = product_price
 
 
-def check_win(board, player_mark):
-    for row in board:
-        if all(cell == player_mark for cell in row):
-            return True
-    for col in range(3):
-        if all(board[row][col] == player_mark for row in range(3)):
-            return True
-    if all(board[i][i] == player_mark for i in range(3)):
-        return True
-    if all(board[i][2 - i] == player_mark for i in range(3)):
-        return True
-    return False
+class WarehouseRecord:
+    def __init__(self, warehouse_id, warehouse_name, warehouse_location):
+        self.warehouse_id = warehouse_id
+        self.warehouse_name = warehouse_name
+        self.warehouse_location = warehouse_location
 
 
-def check_draw(board):
-    return all(cell.isdigit() for row in board for cell in row)
+class OrderRecord:
+    def __init__(self, order_id, product_id, order_quantity, order_date):
+        self.order_id = order_id
+        self.product_id = product_id
+        self.order_quantity = order_quantity
+        self.order_date = order_date
 
 
-def switch_player(current_player):
-    return "O" if current_player == "X" else "X"
+class Table:
+    def __init__(self, size):
+        self.entries = [None] * size
+
+    def __getitem__(self, index):
+        return self.entries[index]
+
+    def __setitem__(self, index, value):
+        self.entries[index] = value
 
 
-def convert_position(position):
-    return (position - 1) // 3, (position - 1) % 3
+class Cobol(object):
+    def __init__(self):
+        self.product_table = Table(100)
+        self.warehouse_table = Table(10)
+        self.order_table = Table(1000)
+        self.transformation_factor = 1.10
+        self.total_order_amount = 0
+        self.count_orders = 0
+        self.ws_date_string = ""
+        self.ws_date = 0
+        self.ws_time = 0
+        self.ws_day = 0
+        self.ws_month = 0
+        self.ws_year = 0
+        self.ws_hour = 0
+        self.ws_minute = 0
+        self.ws_second = 0
+        self.ws_error_code = 0
+        self.ws_error_message = ""
+        self.ws_exit_code = 0
+        self.ws_file_status = ""
+        self.ws_eof = 'N'
+        self.ws_invalid_quantity = 'N'
+        self.ws_invalid_date = 'N'
+        self.ws_order_date = 0
+        self.ws_order_amount = 0
+        self.ws_warehouse_index = 0
+        self.ws_product_index = 0
+        self.ws_order_index = 0
+        self.ws_report_line = ""
+        self.ws_current_date = (0, 0, 0)
+        self.ws_start_date = (0, 1, 1)
+        self.ws_end_date = (0, 0, 0)
+        self.ws_report_date = ""
+        self.ws_report_time = ""
+        self.ws_report_file_name = ""
+        self.ws_order_total = 0
+        self.ws_quantity_string = ""
+        self.ws_order_quantity = 0
+        self.ws_quantity_display = ""
+        self.ws_temp_product_id = ""
+        self.ws_temp_warehouse_id = ""
+        self.ws_warehouse_found = 'N'
+        self.ws_product_found = 'N'
+        self.ws_invalid_amount = 'N'
+        self.ws_warehouse_index2 = 0
+        self.ws_product_index2 = 0
+        self.ws_order_index2 = 0
+        self.ws_product_quantity = 0
+        self.ws_product_price = 0
+        self.ws_acc_quantity = 0
+        self.ws_acc_price = 0
+        self.ws_acc_total = 0
+        self.ws_warehouse_index3 = 0
+        self.ws_product_index3 = 0
+        self.ws_order_index3 = 0
+        self.ws_order_amount3 = 0
+        self.ws_order_quantity3 = 0
+        self.ws_start_dt_string = ""
+        self.ws_end_dt_string = ""
+        self.ws_report_line_count = 0
+
+    def cob(self):
+        # Your code goes here
+        pass
 
 
 def main():
-    board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
-    current_player = "X"
-    game_over = False
-
-    print("Welcome to Tic Tac Toe!")
-    display_board(board)
-
-    while not game_over:
-        position = int(input(f"Player {current_player} turn. Enter a position (1-9): "))
-        row, col = convert_position(position)
-
-        if board[row][col].isdigit():
-            board[row][col] = current_player
-            display_board(board)
-
-            if check_win(board, current_player):
-                print(f"Game over. Player {current_player} wins!")
-                game_over = True
-            elif check_draw(board):
-                print("Game over. It's a draw!")
-                game_over = True
-            else:
-                current_player = switch_player(current_player)
-        else:
-            print("Invalid move. Try again.")
+    cobol = Cobol()
+    cobol.cob()
 
 
 if __name__ == "__main__":

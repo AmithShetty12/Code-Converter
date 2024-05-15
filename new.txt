@@ -1,0 +1,86 @@
+Code Logic:
+
+The code simulates the game of Tic Tac Toe. It starts by creating a 3x3 board represented by a list of lists, where each element is a string representing the position on the board. The player's current mark ('X' or 'O') is tracked, and the game loop continues until a winner is declared or the game ends in a draw.
+
+Approach to Convert to Python:
+
+1. Import the necessary modules: `sys` for exiting the game, and `copy` for creating a deep copy of the board for evaluation.
+
+2. Create a function `display_board(board)` to print the current board state.
+
+3. Implement the `check_win(board, player_mark)` function to evaluate the board for a winning condition.
+
+4. Create a `check_draw(board)` function to check if the game has ended in a draw.
+
+5. Implement the `switch_player(current_player)` function to switch the current player's mark.
+
+6. Define a function `convert_position(position)` to convert the user's input position to row and column indices.
+
+7. Write the `main()` function as the game loop, handling user input, board updates, and game state evaluation.
+
+Python Code:
+
+
+python
+import sys
+import copy
+
+def display_board(board):
+    for row in board:
+        print(" | ".join(row))
+        print("-" * 5)
+
+def check_win(board, player_mark):
+    for row in board:
+        if all(cell == player_mark for cell in row):
+            return True
+    for col in range(3):
+        if all(board[row][col] == player_mark for row in range(3)):
+            return True
+    if all(board[i][i] == player_mark for i in range(3)):
+        return True
+    if all(board[i][2 - i] == player_mark for i in range(3)):
+        return True
+    return False
+
+def check_draw(board):
+    return all(cell.isdigit() for row in board for cell in row)
+
+def switch_player(current_player):
+    return "O" if current_player == "X" else "X"
+
+def convert_position(position):
+    return (position - 1) // 3, (position - 1) % 3
+
+def main():
+    board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
+    current_player = "X"
+    game_over = False
+
+    print("Welcome to Tic Tac Toe!")
+    display_board(board)
+
+    while not game_over:
+        position = int(input(f"Player {current_player} turn. Enter a position (1-9): "))
+        row, col = convert_position(position)
+
+        if board[row][col].isdigit():
+            board[row][col] = current_player
+            display_board(board)
+
+            if check_win(board, current_player):
+                print(f"Game over. Player {current_player} wins!")
+                game_over = True
+            elif check_draw(board):
+                print("Game over. It's a draw!")
+                game_over = True
+            else:
+                current_player = switch_player(current_player)
+        else:
+            print("Invalid move. Try again.")
+
+    sys.exit()
+
+if __name__ == "__main__":
+    main()
+

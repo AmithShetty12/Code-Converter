@@ -186,35 +186,6 @@
             // Disable the button
             button.disabled = true;
         }
-
-        const express = require('express');
-const ejs = require('ejs');
-const { load_dataset } = require('datasets');
-
-const app = express();
-
-// Load dataset
-const ds = load_dataset("codeparrot/github-code", { streaming: true, split: "train" });
-
-// Route to render EJS template
-app.get('/', async (req, res) => {
-    try {
-        // Fetch code snippets
-        const codeSnippets = await ds.iterator().next();
-
-        // Render EJS template with code snippets data
-        res.render('index', { codeSnippets });
-    } catch (error) {
-        console.error('Error fetching code snippets:', error);
-        res.status(500).send('Error fetching code snippets');
-    }
-});
-
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-});
-
-     
     </script>
 </body>
 

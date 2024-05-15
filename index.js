@@ -53,7 +53,7 @@ app.post('/convert', async (req, res) => {
         console.log("Source code written to file successfully.");
         
         // Run conversion process
-        await run(req.body.targetLanguage, req.body.sourceLanguage);
+        await run(req.body.targetLanguage, req.body.sourceLanguage,bs.readFileSync("example.txt","utf8"));
 
         // Read converted code from file
         let convertedCode = await fs.readFile("hi.txt", "utf8");
@@ -62,7 +62,7 @@ app.post('/convert', async (req, res) => {
             convertedCode: convertedCode,
             sourceCode: req.body.sourceCode,
             targetLanguage:req.body.targetLanguage,
-            sourceLanguage:req.body.sourceLanguage
+            sourceLanguage:req.body.sourceLanguage,
         });
     } catch (error) {
         console.error("Error converting code:", error);

@@ -14,6 +14,7 @@ const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 // Define an asynchronous function to run the code conversion and explanation tasks
 async function run(target, source, code) {
   let prompt = `convert this ${source} language to ${target} give me only code \n` + code;
+  console.log(code)
 
 
   // If prompt length exceeds 28000 characters, split the code into halves
@@ -32,7 +33,7 @@ async function run(target, source, code) {
     var opf = filter(await generate("correct the program" + op + op2));
     prompt = `Explain the code logic of the below and also explain us the approach how to convert to ${target} ill convert by myself dont convert it for me just explain\n`+firstHalf;
     let logic1=filter1(await generate(prompt));
-    prompt = `Explain the code logic of the below and also explain us the approach how to convert to ${target} ill convert by myself dont convert it for me just explain\n`+firstHalf;
+    prompt = `Explain the code logic of the below and also explain us the approach how to convert to ${target} ill convert by myself dont convert it for me just explain\n`+secondHalf;
     let logic2=filter1(await generate(prompt));
     var logic=filter1(await generate("check n correct"+logic1+logic2))
 

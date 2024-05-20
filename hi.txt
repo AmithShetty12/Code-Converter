@@ -1,108 +1,44 @@
-class ProductRecord:
-    def __init__(self, product_id, product_name, product_quantity, product_price):
-        self.product_id = product_id
-        self.product_name = product_name
-        self.product_quantity = product_quantity
-        self.product_price = product_price
+import abc
+import collections
 
-
-class WarehouseRecord:
-    def __init__(self, warehouse_id, warehouse_name, warehouse_location):
-        self.warehouse_id = warehouse_id
-        self.warehouse_name = warehouse_name
-        self.warehouse_location = warehouse_location
-
-
-class OrderRecord:
-    def __init__(self, order_id, product_id, order_quantity, order_date):
-        self.order_id = order_id
-        self.product_id = product_id
-        self.order_quantity = order_quantity
-        self.order_date = order_date
-
-
-class Table:
-    def __init__(self, size):
-        self.entries = [None] * size
-
-    def __getitem__(self, index):
-        return self.entries[index]
-
-    def __setitem__(self, index, value):
-        self.entries[index] = value
-
-
-class Cobol(object):
-    def __init__(self):
-        self.product_table = Table(100)
-        self.warehouse_table = Table(10)
-        self.order_table = Table(1000)
-        self.transformation_factor = 1.10
-        self.total_order_amount = 0
-        self.count_orders = 0
-        self.ws_date_string = ""
-        self.ws_date = 0
-        self.ws_time = 0
-        self.ws_day = 0
-        self.ws_month = 0
-        self.ws_year = 0
-        self.ws_hour = 0
-        self.ws_minute = 0
-        self.ws_second = 0
-        self.ws_error_code = 0
-        self.ws_error_message = ""
-        self.ws_exit_code = 0
-        self.ws_file_status = ""
-        self.ws_eof = 'N'
-        self.ws_invalid_quantity = 'N'
-        self.ws_invalid_date = 'N'
-        self.ws_order_date = 0
-        self.ws_order_amount = 0
-        self.ws_warehouse_index = 0
-        self.ws_product_index = 0
-        self.ws_order_index = 0
-        self.ws_report_line = ""
-        self.ws_current_date = (0, 0, 0)
-        self.ws_start_date = (0, 1, 1)
-        self.ws_end_date = (0, 0, 0)
-        self.ws_report_date = ""
-        self.ws_report_time = ""
-        self.ws_report_file_name = ""
-        self.ws_order_total = 0
-        self.ws_quantity_string = ""
-        self.ws_order_quantity = 0
-        self.ws_quantity_display = ""
-        self.ws_temp_product_id = ""
-        self.ws_temp_warehouse_id = ""
-        self.ws_warehouse_found = 'N'
-        self.ws_product_found = 'N'
-        self.ws_invalid_amount = 'N'
-        self.ws_warehouse_index2 = 0
-        self.ws_product_index2 = 0
-        self.ws_order_index2 = 0
-        self.ws_product_quantity = 0
-        self.ws_product_price = 0
-        self.ws_acc_quantity = 0
-        self.ws_acc_price = 0
-        self.ws_acc_total = 0
-        self.ws_warehouse_index3 = 0
-        self.ws_product_index3 = 0
-        self.ws_order_index3 = 0
-        self.ws_order_amount3 = 0
-        self.ws_order_quantity3 = 0
-        self.ws_start_dt_string = ""
-        self.ws_end_dt_string = ""
-        self.ws_report_line_count = 0
-
-    def cob(self):
-        # Your code goes here
+class DataOperation:
+    @classmethod
+    @abc.abstractmethod
+    def perform_operation(cls, input: int) -> int:
         pass
 
+class AdditionOperation(DataOperation):
+    @classmethod
+    def perform_operation(cls, input: int) -> int:
+        return input + 10
 
-def main():
-    cobol = Cobol()
-    cobol.cob()
+class SubtractionOperation(DataOperation):
+    @classmethod
+    def perform_operation(cls, input: int) -> int:
+        return input - 5
 
+class DatabaseUpdater:
+    @classmethod
+    def update_database(cls, operation_name: str, input: int, output: int):
+        print(f"Updating database with operation: {operation_name}, Input: {input}, Output: {output}")
+        # Code to update the database with the operation details
+        # ...
 
 if __name__ == "__main__":
-    main()
+    input_number = int(input("Enter a number: "))
+    operation_type = input("Enter operation type (A for Addition, S for Subtraction): ").upper()
+    output_number = None
+
+    operation = None
+    if operation_type == "A":
+        operation = AdditionOperation
+    elif operation_type == "S":
+        operation = SubtractionOperation
+    else:
+        print("Invalid operation type.")
+        exit()
+
+    output_number = operation.perform_operation(input_number)
+    print(f"Result: {output_number}")
+
+    DatabaseUpdater.update_database(operation_type, input_number, output_number)

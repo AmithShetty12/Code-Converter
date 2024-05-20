@@ -1,54 +1,93 @@
-board = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
-player = 'X'
-winner = None
+program DataOperationWithDatabase;
 
-def display_board():
-    for row in board:
-        print(' '.join(row))
+{$APPTYPE CONSOLE}
 
-def player_turn():
-    print(f"It is player {player}'s turn.")
-    row_choice = int(input("Enter row (1-3): ")) - 1
-    column_choice = int(input("Enter column (1-3): ")) - 1
-    board[row_choice][column_choice] = player
+uses
+  System.SysUtils, System.Classes, Data.DB, Data.SqlExpr, Data.DBXCommon, System.Generics.Collections;
 
-def check_winner():
-    global winner
-    # Check rows
-    for row in board:
-        if row[0] == row[1] == row[2] and row[0] != ' ':
-            winner = row[0]
-            return True
+type
+  TDataOperation = class
+  public
+    class function PerformOperation(const Input: Integer): Integer; virtual; abstract;
+  end;
 
-    # Check columns
-    for i in range(3):
-        if board[0][i] == board[1][i] == board[2][i] and board[0][i] != ' ':
-            winner = board[0][i]
-            return True
+  TAdditionOperation = class(TDataOperation)
+  public
+    class function PerformOperation(const Input: Integer): Integer; override;
+  end;
 
-    # Check diagonals
-    if board[0][0] == board[1][1] == board[2][2] and board[0][0] != ' ':
-        winner = board[0][0]
-        return True
-    if board[0][2] == board[1][1] == board[2][0] and board[0][2] != ' ':
-        winner = board[0][2]
-        return True
+  TSubtractionOperation = class(TDataOperation)
+  public
+    class function PerformOperation(const Input: Integer): Integer; override;
+  end;
 
-    return False
+  TDatabaseUpdater = class
+  public
+    class procedure UpdateDatabase(OperationName: string; Input, Output: Integer);
+  end;
 
-def main():
-    global player
-    global winner
-    print("WELCOME TO TIC TAC TOE")
-    display_board()
+{ TAdditionOperation }
 
-    while winner is None:
-        player_turn()
-        if check_winner():
-            break
-        player = 'X' if player == 'O' else 'O'
+class function TAdditionOperation.PerformOperation(const Input: Integer): Integer;
+begin
+  Result := Input + 10;
+end;
 
-    print(f"GAME OVER. THE WINNER IS: {winner}")
+{ TSubtractionOperation }
 
-if __name__ == "__main__":
-    main()
+class function TSubtractionOperation.PerformOperation(const Input: Integer): Integer;
+begin
+  Result := Input - 5;
+end;
+
+{ TDatabaseUpdater }
+
+class procedure TDatabaseUpdater.UpdateDatabase(OperationName: string; Input, Output: Integer);
+begin
+  Writeln('Updating database with operation:', OperationName, ', Input:', Input, ', Output:', Output);
+  // Code to update the database with the operation details
+end;
+
+var
+  InputNumber: Integer;
+  OperationType: Char;
+  OutputNumber: Integer;
+  Operation: TDataOperation;
+begin
+  try
+    Writeln('Welcome to Data Operation Program');
+
+    // Input operation type
+    Write('Enter operation type (A for Addition, S for Subtraction): ');
+    Readln(OperationType);
+
+    // Input number
+    Write('Enter a number: ');
+    Readln(InputNumber);
+
+    // Perform operation based on user input
+    case OperationType of
+      'A': Operation := TAdditionOperation.Create;
+      'S': Operation := TSubtractionOperation.Create;
+    else
+      begin
+        Writeln('Invalid operation type.');
+        Exit;
+      end;
+    end;
+
+    OutputNumber := Operation.PerformOperation(InputNumber);
+
+    // Output result to the user
+    Writeln('Result:', OutputNumber);
+
+    // Update database with operation details
+    TDatabaseUpdater.UpdateDatabase(OperationType, InputNumber, OutputNumber);
+
+    // Clean up
+    Operation.Free;
+  except
+    on E: Exception do
+      Writeln('Error:', E.ClassName, ':', E.Message);
+  end;
+end.

@@ -51,6 +51,9 @@ Create a pull request.
 
 If you find this project useful, please consider giving it a star on GitHub. Your support is greatly appreciated!
 
+[![GitHub stars](https://img.shields.io/github/stars/AmithShetty12/Code-Converter.svg?style=social&label=Star&maxAge=2592000)](https://github.com/AmithShetty12/Code-Converter/stargazers)
+
+
 ## Contributors
 
 Thanks to the following people who have contributed to this project:

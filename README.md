@@ -62,3 +62,4 @@ Thanks to the following people who have contributed to this project:
 - [Mohammed Jumaan](https://github.com/jumaan1st)
 - [Shreyas R](https://github.com/SHREYAS9503)
 - [Rithin R](https://github.com/rithin2003)
+- [Raghavendra S](https://github.com/raaghu2002)
